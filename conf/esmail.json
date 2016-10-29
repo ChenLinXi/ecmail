@@ -1,4 +1,4 @@
 {
-    "sender":"hackerzgz@qq.com",
-    "eshost":"stmp.qq.com"
+    "user":"hackerzgz@qq.com",
+    "eshost":"smtp.qq.com:25"
 }
