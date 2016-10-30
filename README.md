@@ -8,12 +8,12 @@ It will be a easy way to send email :)
 ## Install
 
 ```
-> go get github.com/HackeZ/esmail...
+> go get github.com/HackeZ/ecmail...
 ```
 
 ## Usage
 
-It will be a Service and gRPC application but not now...
+It will be a HTTP and gRPC application but not now...
 
 
 ## Dependence

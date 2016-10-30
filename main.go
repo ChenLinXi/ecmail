@@ -12,16 +12,16 @@ import (
 )
 
 const (
-	// VERSION of ESMail
+	// VERSION of ECMail
 	VERSION = "0.1"
 	// ConfFile where save conf
-	confPath = "./conf/esmail.json"
+	confPath = "./conf/ecmail.json"
 )
 
-// esc EasyMail Conf
-var esc struct {
+// ecc ECMail Conf
+var ecc struct {
 	User   string `json:"user"`
-	ESHost string `json:"eshost"`
+	ECHost string `json:"echost"`
 }
 
 func init() {
@@ -30,11 +30,11 @@ func init() {
 }
 
 func main() {
-	err := utils.ParseJSONFromFile(confPath, &esc)
+	err := utils.ParseJSONFromFile(confPath, &ecc)
 	if err != nil {
 		panic(err)
 	}
-	log.Println("esmail conf => ", esc)
+	log.Println("ecmail conf => ", ecc)
 
 	pw, err := getpass.GetPassword("enter password:")
 	if err != nil {
@@ -43,14 +43,14 @@ func main() {
 
 	to := "xxx@qq.com;xxx@qq.com" // <<<==== enter the email address you want to send to.
 	subject := "邮件服务器发送测试"
-	body := `<html><head>Welcome to ESMail</head><body><h3>Have a <a href="http://www.github.com/HackeZ/ESMail">try</a> :)</h3></body></html>`
-	log.Println("Sending ESMail...")
-	err = sendESMail(esc.User, pw, esc.ESHost, to, subject, body, "html")
+	body := `<html><head>Welcome to ECMail</head><body><h3>Have a <a href="http://www.github.com/HackeZ/ECMail">try</a> :)</h3></body></html>`
+	log.Println("Sending ECMail...")
+	err = sendECMail(ecc.User, pw, ecc.ECHost, to, subject, body, "html")
 	if err != nil {
 		log.Println("Sending Error =>", err)
 		return
 	}
-	log.Println("ESMail Already Sent")
+	log.Println("ECMail Already Sent")
 }
 
 // Send only for service
@@ -61,18 +61,18 @@ func main() {
 //  - body			the content of mail
 //  - mailType      mail type :html or text
 func Send(pw, to, subject, body, mailType string) error {
-	log.Println("Sending ESMail...")
-	defer log.Println("ESMail Already Sent")
+	log.Println("Sending ECMail...")
+	defer log.Println("ECMail Already Sent")
 
-	err := utils.ParseJSONFromFile(confPath, &esc)
+	err := utils.ParseJSONFromFile(confPath, &ecc)
 	if err != nil {
 		return err
 	}
 
-	return sendESMail(esc.User, pw, esc.ESHost, to, subject, body, mailType)
+	return sendECMail(ecc.User, pw, ecc.ECHost, to, subject, body, mailType)
 }
 
-// sendESMail send mail by stmp protocol
+// sendECMail send mail by stmp protocol
 // Params
 // 	- user  		example@example.com login smtp server user
 //  - password	    login smtp server password
@@ -81,7 +81,7 @@ func Send(pw, to, subject, body, mailType string) error {
 //  - subject		the subject of mail
 //  - body			the content of mail
 //  - mailType      mail type :html or text
-func sendESMail(user, pw, host, to, subject, body, mailType string) error {
+func sendECMail(user, pw, host, to, subject, body, mailType string) error {
 	hp := strings.Split(host, ":")
 	sendToWho := strings.Split(to, ";")
 
